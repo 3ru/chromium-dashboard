@@ -100,7 +100,7 @@ gulp.task('rollup', () => {
       'client-src/js-src/openapi-client.js',
     ],
     plugins: [
-      rollupResolve(),
+      rollupResolve({extensions: ['.js', '.ts']}),
       rollupBabel({babelHelpers: 'bundled'}),
       rollupMinify({mangle: false, comments: false}),
     ],
