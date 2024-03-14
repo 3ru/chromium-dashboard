@@ -33,6 +33,13 @@
       "tabWidth": 2
     }],
   },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+    }
+  ],
   "globals": {
     "ga": true,
     "Metric": true
