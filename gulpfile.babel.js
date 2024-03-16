@@ -124,7 +124,7 @@ gulp.task('rollup', () => {
 gulp.task('rollup-cjs', () => {
   return rollup({
     input: [
-      'client-src/js-src/openapi-client.js', 
+      'client-src/js-src/openapi-client.js',
     ],
     plugins: [
       rollupResolve(),
