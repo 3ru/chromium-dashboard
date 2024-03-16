@@ -18,6 +18,7 @@ import { rollup } from 'rollup';
 import rollupResolve from '@rollup/plugin-node-resolve';
 import rollupBabel from '@rollup/plugin-babel';
 import rollupMinify from 'rollup-plugin-babel-minify';
+import typescript from '@rollup/plugin-typescript';
 
 function uglifyJS() {
   return uglify({
@@ -46,8 +47,10 @@ function rollupIgnoreUndefinedWarning(warning, warn) {
 gulp.task('lint', () => {
   return gulp.src([
     'client-src/js-src/*.js',
+    'client-src/js-src/*.ts',
     'client-src/elements/*.js',
-    'client-src/contexts/*.js',
+    'client-src/elements/*.ts',
+    // 'client-src/contexts/*.js',
   ])
     .pipe(eslint())
     .pipe(eslint.format())
@@ -57,8 +60,10 @@ gulp.task('lint', () => {
 gulp.task('lint-fix', () => {
   return gulp.src([
     'client-src/js-src/*.js',
+    'client-src/js-src/*.ts',
     'client-src/elements/*.js',
-    'client-src/contexts/*.js',
+    'client-src/elements/*.ts',
+    // 'client-src/contexts/*.js',
   ], {base: './'})
     .pipe(eslint({fix:true}))
     .pipe(eslint.format())
@@ -100,7 +105,8 @@ gulp.task('rollup', () => {
       'client-src/js-src/openapi-client.js',
     ],
     plugins: [
-      rollupResolve(),
+      rollupResolve({extensions: ['.js', '.ts']}),
+      typescript(),
       rollupBabel({babelHelpers: 'bundled'}),
       rollupMinify({mangle: false, comments: false}),
     ],
@@ -184,15 +190,19 @@ gulp.task('watch', gulp.series(
     gulp.watch(['client-src/sass/**/*.scss'], gulp.series('styles'));
     gulp.watch([
       'client-src/js-src/**/*.js',
+      'client-src/js-src/**/*.ts',
       'client-src/elements/*.js',
+      'client-src/elements/*.ts',
       'client-src/elements/css/**/*.js',
-      'client-src/contexts/*.js',
+      // 'client-src/contexts/*.js',
     ], gulp.series(['lint', 'js']));
     gulp.watch([
       'client-src/components.js',
+      'client-src/components.ts',
       'client-src/elements/*.js',
+      'client-src/elements/*.ts',
       'client-src/elements/css/**/*.js',
-      'client-src/contexts/*.js',
+      // 'client-src/contexts/*.js',
     ], gulp.series(['rollup']));
   },
 ));

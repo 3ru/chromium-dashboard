@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noImplicitAny" : false,
+    "typeRoots": ["node_modules/@types", "client-src/types"],
+    "rootDir": "client-src",
+  },
+  "include": ["client-src/**/*.ts"],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}
